@@ -13,7 +13,8 @@ export const register = async (req, res) => {
             lastName: req.body.lastName,
             email: req.body.email,
             password: req.body.password,
-            role: req.body.role
+            role: req.body.role,
+            facultyId: req.body.facultyId
         }
         newUser.hash_password = await bcrypt.hash(req.body.password, 10)
         if (req.file) {

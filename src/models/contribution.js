@@ -1,13 +1,10 @@
 import mongoose from 'mongoose'
 
 const contributionSchema = new mongoose.Schema({
-    fileName: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    filePath: {
-        type: String,
+    fileName: String,
+    filePath: String,
+    facultyId: {
+        type: mongoose.Schema.ObjectId, ref: 'Faculty',
         required: true
     }
 }, { timestamps: true })

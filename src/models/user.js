@@ -38,6 +38,9 @@ const userSchema = new mongoose.Schema({
     profilePicture: {
         type: String
     },
+    facultyId : {
+        type: mongoose.Schema.ObjectId, ref: 'Faculty'
+    },
     is_deleted: {
         type: Boolean,
         default: false
