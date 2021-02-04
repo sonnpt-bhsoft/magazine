@@ -1,24 +1,14 @@
 import express from 'express'
-import multer from 'multer'
-import { uploadFile, downloadFile } from '../controllers/contribution.js';
-import path from 'path'
+import { uploadFile, downloadFile, publicContribution, statistic, getContributions, getContributionsByFaculty } from '../controllers/contribution.js';
 import { requireSignIn, checkRole } from '../common-middleware/index.js'
-
+import { upload } from '../upload.js'
 const router = express.Router()
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        const __dirname = path.resolve();
-        cb(null, path.join(__dirname, 'src/uploads'))
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname + '-' + Date.now())
-    }
-})
-
-const upload = multer({ storage })
-
+router.get('/get-all-contributions', getContributions)
+router.get('/contributions-by-faculty', requireSignIn, checkRole('coordinator'), getContributionsByFaculty)
 router.post('/upload-file', upload.single('filePath'), requireSignIn, checkRole('student'), uploadFile)
-router.get('/download/:id', downloadFile)
+router.get('/download/:id', requireSignIn, checkRole('coordinator', 'manager'), downloadFile)
+router.post('/public-contribution', publicContribution)
+router.get('/statistic', statistic)
 
 export default router

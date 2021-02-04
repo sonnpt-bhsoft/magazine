@@ -6,6 +6,10 @@ const contributionSchema = new mongoose.Schema({
     facultyId: {
         type: mongoose.Schema.ObjectId, ref: 'Faculty',
         required: true
+    },
+    is_public: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true })
 

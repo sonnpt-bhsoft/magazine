@@ -7,7 +7,7 @@ import { requireSignIn, checkRole } from '../common-middleware/index.js'
 
 const route = (app) => {
     app.use('/api/auth', authRoutes)
-    app.use('/api/faculty', requireSignIn, checkRole('admin'), facultyRoutes)
+    app.use('/api/faculty', requireSignIn, checkRole(['admin']), facultyRoutes)
     app.use('/api/contribution', contributionRoutes)
 }
 
